@@ -9,3 +9,12 @@ sculpin_content_types:
         # taxonomies:
             # - tags
             # - categori es
+
+services:
+    skip_sources:
+        class: SculpinTools\SkipSources
+        arguments:
+            # more about this below
+            - ["components/*", "_posts/.git", "_posts/.gitignore"]
+        tags:
+            - { name: kernel.event_subscriber }
