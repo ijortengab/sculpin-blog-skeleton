@@ -1,35 +1,18 @@
-{% extends "default" %}
+{% extends "front" %}
 
 {% block head_meta %}
     <meta name="robots" content="index, follow">
 {% endblock %}
 
-{% block head_styles %}
-    {{ parent() }}
-    <link href="{{ site.cdnjs.host }}/ajax/libs/highlight.js/9.11.0/styles/default.min.css" rel="stylesheet">
-{% endblock %}
-
-{% block scripts_after %}
-{{ parent() }}
-<script src="{{ site.cdnjs.host }}/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
-<script src="{{ site.cdnjs.host }}/ajax/libs/highlight.js/9.8.0/languages/bash.min.js"></script>
-<script src="{{ site.cdnjs.host }}/ajax/libs/highlight.js/9.8.0/languages/php.min.js"></script>
-<script>hljs.configure({languages: []});</script>
-<script>hljs.initHighlightingOnLoad();</script>
-{% endblock %}
-
-
-    
 {% block content_wrapper %}
-    <article class="markdown-body">
+    <article>
         <header>
-            <h1>{{ page.title }}</h1>
+        mantab
+            <h2>{{ page.title }} <small>post</small></h2>
         </header>
-        
         <div>
             {{ page.blocks.content|raw }}
         </div>
-        <hr />
         {% if page.categories %}
             <p class="categories">
             Categories:

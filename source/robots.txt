@@ -5,5 +5,7 @@ permalink: none
 User-agent: *
 Disallow: /blog/tags/
 Disallow: /blog/categories/
-
+Disallow: /tools/
+Disallow: /log/
+Disallow: /static/
 Sitemap: {{ site.url }}/sitemap.xml
