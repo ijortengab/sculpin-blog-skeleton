@@ -4,70 +4,40 @@
     <meta name="robots" content="index, follow">
 {% endblock %}
 
-{% block head_styles %}
-    {{ parent() }}
-    <link href="{{ site.cdnjs.host }}/ajax/libs/highlight.js/9.11.0/styles/default.min.css" rel="stylesheet">
-{% endblock %}
-
-{% block scripts_after %}
-{{ parent() }}
-<script src="{{ site.cdnjs.host }}/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
-<script src="{{ site.cdnjs.host }}/ajax/libs/highlight.js/9.8.0/languages/bash.min.js"></script>
-<script src="{{ site.cdnjs.host }}/ajax/libs/highlight.js/9.8.0/languages/php.min.js"></script>
-<script>hljs.configure({languages: []});</script>
-<script>hljs.initHighlightingOnLoad();</script>
-{% endblock %}
-
-
-    
 {% block content_wrapper %}
-    <article class="markdown-body">
-        <header>
-            <h1>{{ page.title }}</h1>
-        </header>
-        
+    <ol class="breadcrumb">
+      <li><a href="{{ site.url }}/">Home</a></li>
+      <li><a href="{{ site.url }}/blog/">Blog</a></li>
+      <li class="active">{{ page.title|length > 81 ? page.title|slice(0, 80) ~ '...' : page.title  }}</li>
+    </ol>
+    <article>
+          <div class="page-header">
+            <h1>{{ page.title }}{% if page.subtitle %} <small>{{ page.subtitle }}</small>{% endif %}</h1>
+          </div>
         <div>
             {{ page.blocks.content|raw }}
         </div>
-        <hr />
-        {% if page.categories %}
-            <p class="categories">
-            Categories:
-            {% for category in page.categories %}
-            <a href="{{ site.url }}/blog/categories/{{ category|url_encode(true) }}">{{ category }}</a>{% if not loop.last %}, {% endif %}
-            {% endfor %}
-            </p>
-        {% endif %}
-        {% if page.tags %}
-            <p class="tags">
-            Tags:
-            {% for tag in page.tags %}
-            <a href="{{ site.url }}/blog/tags/{{ tag|url_encode(true) }}">{{ tag }}</a>{% if not loop.last %}, {% endif %}
-            {% endfor %}
-            </p>
-        {% endif %}
-
         {% if page.previous_post or page.next_post %}
-            <nav class="article">
-                <ul>
-                    {% if page.next_post %}
-                        <li>Next: <a class="next" href="{{ site.url }}{{ page.next_post.url }}" title="{{ page.next_post.title }}"><span class="title">{{ page.next_post.title }}</span></a></li>
-                    {% endif %}
-                    {% if page.previous_post %}
-                        <li>Previous: <a class="previous" href="{{ site.url }}{{ page.previous_post.url }}" title="{{ page.previous_post.title }}"><span class="title">{{ page.previous_post.title }}</span></a></li>
-                    {% endif %}
-                </ul>
-            </nav>
+            <ul class="pager">
+                {% if page.previous_post %}
+                <li class="previous"><a title="{{ page.previous_post.title }}" href="{{ site.url }}{{ page.previous_post.url }}">&larr; Older</a></li>
+                {% else %}
+                <li class="previous disabled"><a href="#">&larr; Older</a></li>
+                {% endif %}
+                {% if page.next_post %}
+                <li class="next"><a title="{{ page.next_post.title }}" href="{{ site.url }}{{ page.next_post.url }}">Newer &rarr;</a></li>
+                {% else %}
+                <li class="next disabled"><a href="#">Newer &rarr;</a></li>
+                {% endif %}
+            </ul>
         {% endif %}
     </article>
-
 
 {% if site.disqus.shortname and site.disqus.shortname != '' %}
 <div id="disqus_thread"></div>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
     var disqus_shortname = '{{site.disqus.shortname}}'; // required: replace example with your forum shortname
-
 
     {% if page.disqus.identifier  %}var disqus_identifier = '{{page.disqus.identifier}}'; {% endif %}
 
