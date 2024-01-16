@@ -1,5 +1,5 @@
 sculpin_content_types:
-    projects:        
+    projects:
         permalink: project/:basename/
     posts:
         permalink: blog/:year/:month/:day/:filename/
@@ -10,11 +10,20 @@ sculpin_content_types:
             # - tags
             # - categori es
 
+# https://symfony.com/doc/current/service_container.html
 services:
+    # https://matthiasnoback.nl/2017/06/how-to-make-sculpin-skip-certain-sources/
     skip_sources:
         class: SculpinTools\SkipSources
         arguments:
             # more about this below
             - ["components/*", "_posts/.git", "_posts/.gitignore"]
+        tags:
+            - { name: kernel.event_subscriber }
+    # https://github.com/tsphethean/sculpin-related-posts-bundle/tree/master
+    sculpin_related_posts.generator:
+        class: SculpinTools\RelatedPostsGenerator
+        arguments:
+            - @sculpin.source_permalink_factory
         tags:
             - { name: kernel.event_subscriber }
