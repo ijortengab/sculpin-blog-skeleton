@@ -6,9 +6,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Sculpin\Core\Event\SourceSetEvent;
 use Sculpin\Core\Sculpin;
 
-/**
- * https://matthiasnoback.nl/2017/06/how-to-make-sculpin-skip-certain-sources/
- */
 final class SkipSources implements EventSubscriberInterface
 {
     /**
@@ -24,7 +21,6 @@ final class SkipSources implements EventSubscriberInterface
     public function skipSourcesMatchingPattern(SourceSetEvent $event): void
     {
         foreach ($event->allSources() as $source) {
-            $a = $source->relativePathname();
             foreach ($this->patterns as $pattern) {
                 if (fnmatch($pattern, $source->relativePathname())) {
                     $source->setShouldBeSkipped();

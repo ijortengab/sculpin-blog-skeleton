@@ -41,8 +41,8 @@
     },
     "autoload": {
         "classmap": ["component-manager.php"],
-        "files": [
-            "app/SculpinTools-SkipSources.php"
-        ]
+        "psr-4": {
+            "SculpinTools\\": "app/"
+        }
     }
 }
