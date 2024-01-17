@@ -4,10 +4,17 @@ title: Tags
 use:
     - posts_tags
 ---
-<h2>Tags</h2>
+<ol class="breadcrumb">
+  <li><a href="{{ site.url }}/">Home</a></li>
+  <li><a href="{{ site.url }}/blog/">Archive</a></li>
+  <li>{{ page.title }}</li>
+</ol>
+<div class="page-header">
+  <h1>{{ page.title }}{% if page.subtitle %} <small><span class="label label-info">{{ page.subtitle }}</span></small>{% endif %}</h1>
+</div>
 
 <div>
 {% for tag,posts in data.posts_tags %}
-<a href="{{ site.url }}/blog/tags/{{ tag|url_encode(true) }}">{{ tag }}</a>
-{% endfor %}
+<span style="font-size:100%; line-height: 3;" class="label label-info"><a style="color: white" href="{{ site.url }}/blog/tags/{{ tag|url_encode(true) }}">{{ tag }}</a></span>{% if not loop.last %}, {% endif %}
+{% endfor %}.
 </div>

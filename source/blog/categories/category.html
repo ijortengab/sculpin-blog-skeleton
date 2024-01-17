@@ -4,7 +4,7 @@ title: Category Archive
 generator: [posts_category_index, pagination]
 pagination:
     provider: page.category_posts
-
+    max_per_page: 100
 ---
 
 {% block head_meta %}
@@ -14,8 +14,34 @@ pagination:
 
 {% block title %}{{ page.title }} "{{ page.category }}"{% endblock %}
 {% block content %}
+<ol class="breadcrumb">
+  <li><a href="{{ site.url }}/">Home</a></li>
+  <li><a href="{{ site.url }}/blog/">Archive</a></li>
+  <li><a href="{{ site.url }}/blog/categories/">Categories</a></li>
+  <li><a href="{{ site.url }}/blog/categories/{{ page.category|url_encode(true) }}.xml">{{ page.category }}.xml</a></li>
+</ol>
+<div class="page-header">
+  <h1>{{ page.title }} <small><span class="label label-info">{{ page.category }}</span></small></h1>
+</div>
+{% if page.pagination.previous_page or page.pagination.next_page %}
+<div>
+    <ul class="pager">
+        {% if page.pagination.previous_page %}
+        <li class="previous"><a title="Previous Page" href="{{ site.url }}{{ page.pagination.previous_page.url }}">&larr; Previous Page</a></li>
+        {% else %}
+        <li class="previous disabled"><a href="#">&larr; Previous Page</a></li>
+        {% endif %}
+        {% if page.pagination.next_page %}
+        <li class="next"><a title="Next Page" href="{{ site.url }}{{ page.pagination.next_page.url }}">Next Page &rarr;</a></li>
+        {% else %}
+        <li class="next disabled"><a href="#">Next Page &rarr;</a></li>
+        {% endif %}
+    </ul>
+</div>
+{% endif %}
+<div class="panel panel-default">
+    <ul class="list-group">
 {% set year = '0' %}
-<h2>"{{ page.category }}"</h2>
 {% for post in page.pagination.items %}
 {% set this_year %}{{ post.date | date("Y") }}{% endset %}
 {% if year != this_year %}
@@ -25,23 +51,25 @@ pagination:
 {% set this_month %}{{ post.date | date("F") }}{% endset %}
 {% if month != this_month %}
   {% set month = this_month %}
-  <h3>{{ month }} {{ year }}</h3>
+  <li class="list-group-item">{{ month }} {{ year }}</li>
 {% endif %}
-<article>
-  <div><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></div>
-</article>
+  <li class="list-group-item"><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></li>
 {% endfor %}
-
-<div>
+    </ul>
 {% if page.pagination.previous_page or page.pagination.next_page %}
-    <nav class="article clearfix">
-    {% if page.pagination.previous_page %}
-    <a class="previous" href="{{ site.url }}{{ page.pagination.previous_page.url }}" title="Previous Page"><span class="title">Previous Page</span></a>
-    {% endif %}
-    {% if page.pagination.next_page %}
-    <a class="next" href="{{ site.url }}{{ page.pagination.next_page.url }}" title="Next Page"><span class="title">Next Page</span></a>
-    {% endif %}
-    </nav>
-{% endif %}
+<div>
+    <ul class="pager">
+        {% if page.pagination.previous_page %}
+        <li class="previous"><a title="Previous Page" href="{{ site.url }}{{ page.pagination.previous_page.url }}">&larr; Previous Page</a></li>
+        {% else %}
+        <li class="previous disabled"><a href="#">&larr; Previous Page</a></li>
+        {% endif %}
+        {% if page.pagination.next_page %}
+        <li class="next"><a title="Next Page" href="{{ site.url }}{{ page.pagination.next_page.url }}">Next Page &rarr;</a></li>
+        {% else %}
+        <li class="next disabled"><a href="#">Next Page &rarr;</a></li>
+        {% endif %}
+    </ul>
 </div>
+{% endif %}
 {% endblock content %}
