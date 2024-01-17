@@ -16,21 +16,41 @@
         <div>
             {{ page.blocks.content|raw }}
         </div>
-        {% if page.previous_post or page.next_post %}
-            <ul class="pager">
-                {% if page.previous_post %}
-                <li class="previous"><a title="{{ page.previous_post.title }}" href="{{ site.url }}{{ page.previous_post.url }}">&larr; Older</a></li>
-                {% else %}
-                <li class="previous disabled"><a href="#">&larr; Older</a></li>
-                {% endif %}
-                {% if page.next_post %}
-                <li class="next"><a title="{{ page.next_post.title }}" href="{{ site.url }}{{ page.next_post.url }}">Newer &rarr;</a></li>
-                {% else %}
-                <li class="next disabled"><a href="#">Newer &rarr;</a></li>
-                {% endif %}
-            </ul>
-        {% endif %}
     </article>
+    {% if page.previous_post or page.next_post %}
+        <ul class="pager">
+            {% if page.previous_post %}
+            <li class="previous"><a title="{{ page.previous_post.title }}" href="{{ site.url }}{{ page.previous_post.url }}">&larr; Older</a></li>
+            {% else %}
+            <li class="previous disabled"><a href="#">&larr; Older</a></li>
+            {% endif %}
+            {% if page.next_post %}
+            <li class="next"><a title="{{ page.next_post.title }}" href="{{ site.url }}{{ page.next_post.url }}">Newer &rarr;</a></li>
+            {% else %}
+            <li class="next disabled"><a href="#">Newer &rarr;</a></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+
+    {% if page.tags or page.related %}
+      <div class="panel panel-default">
+          <div class="panel-heading">Related</div>
+            {% if page.tags %}
+              <div class="panel-body">
+                {% for tag in page.tags %}
+                  <span class="label label-info"><a style="color: white" href="{{ site.url }}/blog/tags/{{ tag|url_encode(true) }}">{{ tag }}</a></span>{% if not loop.last %}, {% endif %}
+                {% endfor %}.
+              </div>
+            {% endif %}
+            {% if page.related %}
+              <div class="list-group">
+              {% for relate in page.related %}
+                <a class="list-group-item" href="{{ relate.source.url }}">{{ relate.title }}</a>
+              {% endfor %}
+              </div>
+            {% endif %}
+      </div>
+    {% endif %}
 
 {% if site.disqus.shortname and site.disqus.shortname != '' %}
 <div id="disqus_thread"></div>
@@ -60,4 +80,9 @@
 </noscript>
 {% endif %}
 
+{% endblock %}
+
+{% block head_scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/languages/ini.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/languages/bash.min.js" type="text/javascript"></script>
 {% endblock %}
