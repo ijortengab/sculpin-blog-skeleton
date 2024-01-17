@@ -60,13 +60,21 @@
                         <ul class="nav navbar-nav">
                               <li><a href="{{ site.url }}/">Home</a></li>
                               <li><a href="{{ site.url }}/blog/">Archive</a></li>
+                              <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Links <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                  <li><a href="{{ site.url }}/blog/tags/">Tags</a></li>
+                                  <li><a href="{{ site.url }}/blog/categories/">Categories</a></li>
+                                  <li role="separator" class="divider"></li>
+                                  <li><a href="https://github.com/ijortengab/sculpin-blog-skeleton">Github Repository</a></li>
+                                </ul>
+                              </li>
                           </ul>
                     </div>
                 </div>
             </nav>
         </header>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- bawah header -->
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-1293461459055784"
