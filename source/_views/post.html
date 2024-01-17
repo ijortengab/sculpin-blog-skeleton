@@ -83,6 +83,17 @@
 {% endblock %}
 
 {% block head_scripts %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/languages/ini.min.js" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/languages/bash.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/ini.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/nginx.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js" type="text/javascript"></script>
+
+{% endblock %}
+
+{% block scripts_after %}
+    <script>$(document).ready(function () {
+      hljs.highlightAll();
+    })
+    </script>
 {% endblock %}
